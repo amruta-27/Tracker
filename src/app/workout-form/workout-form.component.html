@@ -1,0 +1,16 @@
+<div class="form-container box">
+  <h2 class="heading">Add Workout</h2>
+  <form (ngSubmit)="addWorkout()">
+
+    <input type="text" class="input" [(ngModel)]="userName" name="userName" placeholder="Enter Name" required>
+
+    <div class="checkbox-group check">
+      <div *ngFor="let type of workoutTypes">
+        <input type="checkbox" [(ngModel)]="selectedWorkouts[type]" name="{{type}}"/> {{ type }}
+        <input *ngIf="selectedWorkouts[type]" type="number" [(ngModel)]="minutes[type]" name="{{type}}_minutes" placeholder="Minutes" min="1" class="checkinput"/>
+      </div>
+    </div>
+
+    <button type="submit" class="button">Add Workout</button>
+  </form>
+</div>

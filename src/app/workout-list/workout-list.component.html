@@ -1,0 +1,40 @@
+
+<div class="list-container box">
+
+    <h2 class="heading">Workout List</h2>
+  
+    <input type="text" class="input" [(ngModel)]="searchQuery" (input)="filterWorkouts()" placeholder="Search by Name">
+    <select class="input" [(ngModel)]="selectedWorkoutType" (change)="filterWorkouts()">
+      <option value="">All Types</option>
+      <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+    </select>
+  
+    <table class="table">
+      <thead>
+        <tr class="head">
+          <th class="headtext">Name</th>
+          <th class="headtext">Workout Type</th>
+          <th class="headtext">Total Minutes</th>
+          <th class="headtext"></th>
+        </tr>
+      </thead>
+      <tbody class="body">
+        <tr *ngFor="let workout of paginatedWorkouts">
+          <td class="bodytext">{{ workout.userName }}</td>
+          <td class="bodytext">{{ getWorkoutTypes(workout) }}</td>
+          <td class="bodytext">{{ workout.workoutMinutes }}</td>
+          <td class="bodytext"><button class="button" (click)="deleteWorkout(workout.id, workout.userName)">delete</button></td> 
+
+        </tr>
+      </tbody>
+    </table>
+
+    <hr>
+  
+    <div class="pagination center">
+      <button class="button" (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+      <span> Page {{ currentPage }} of {{ totalPages }} </span>
+      <button class="button" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  </div>
+  
