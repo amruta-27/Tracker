@@ -32,6 +32,8 @@ export class WorkoutListComponent {
 
   loadWorkouts() {
     this.workouts=this.dataService.getworkouts() || [];
+
+    
     this.filterWorkouts();
   }
 
@@ -39,16 +41,22 @@ export class WorkoutListComponent {
     return workout.workoutType.map((item: any) => item.type).join(', ');
   }
 
+
   filterWorkouts() {
     this.filteredWorkouts = this.workouts.filter(workout =>
       workout.userName.toLowerCase().includes(this.searchQuery.toLowerCase()) &&
-      (this.selectedWorkoutType ? workout.workoutType.includes(this.selectedWorkoutType) : true)
+      (this.selectedWorkoutType
+        ? Array.isArray(workout.workoutType)
+          ? workout.workoutType.some((w: { type: string }) => w.type === this.selectedWorkoutType) 
+          : workout.workoutType === this.selectedWorkoutType : true)
     );
-
+  
     this.totalPages = Math.ceil(this.filteredWorkouts.length / this.itemsPerPage);
     this.currentPage = 1;
     this.paginate();
+  
   }
+  
 
   paginate() {
     const start = (this.currentPage - 1) * this.itemsPerPage;

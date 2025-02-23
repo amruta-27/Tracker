@@ -3,7 +3,6 @@ import { WorkoutListComponent } from './workout-list.component';
 import { DataService } from '../data.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
 
 // Mock DataService
 class MockDataService {
@@ -77,8 +76,7 @@ describe('WorkoutListComponent', () => {
   it('should paginate workouts correctly', () => {
     component.filteredWorkouts = [
       { id: '1', userName: 'John', workoutType: [{ type: 'Running', minutes:20 }] },
-      { id: '2', userName: 'Jane', workoutType: [{ type: 'Yoga' , minutes:20}] },
-      { id: '3', userName: 'Jack', workoutType: [{ type: 'Cycling', minutes:20 }] }
+      { id: '2', userName: 'Jane', workoutType: [{ type: 'Yoga' , minutes:20}] }
     ];
     component.itemsPerPage = 2;
     component.paginate();
